@@ -1,4 +1,0 @@
-HW
-==
-
-Hi there!
