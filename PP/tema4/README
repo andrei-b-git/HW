@@ -1,0 +1,35 @@
+nume: Bojin
+prenume: Andrei Florian
+grupa/seria: 323 CA
+
+	In implementare m-am folosit de un nou template, o copie a situatiei
+de joc actuale care imi permite de explorez potentiale alte situatii de joc.
+Aceasta copie mai contine in plus un camp, si anume campul dir care reprezinta
+directia pe care se deplaseaza mingea si care contine doua coordonate de forma:
+	N : (-1  0);
+	NE: (-1  1);
+	E : ( 0  1);
+	SE: ( 1  1);
+	S : ( 1  0);
+	SV: ( 1 -1);
+	V : ( 0 -1);
+	NV: (-1 -1);
+	Am regula init_copy_world care creaza aceasta copie a situatiei de joc,
+marcand directia de deplasare initiala cu (0, 0) si adaugand coordonatele initiale
+ale mingii la lista de mutari.
+	Folosindu-ma de aceasta copie, generez toate situatiile posibile obtinute in
+urma unor mutari diferite ale mingii, construindu-mi in memorie un arbore al situatiilor
+de joc pe care il explorez in adancime.
+	Inainte de toate, elimin acele situatii de joc care s-au solutionat (au win cu id-ul lor).
+	In momentul in care mingea a ajuns sau a depasit ultima linie a terenului, consider
+ca este gol si adaug un fapt win cu id-ul situatiei de joc respective, impreuna cu mutarile
+efectuate.
+	Pentru a muta mingea, am doua reguli:
+test_neighbours: care testeaza daca vecinii pozitiei actuale a mingii sunt jucatori si 
+			indreapta mingea pe directia acestora, creand o noua situatie de joc.
+move_replace: care identifica acele situatii de joc unde mingea a ajuns pe aceeasi pozitie 
+			cu un jucator, inlatura jucatorul respectiv si muta mingea in continuare pe 
+			directia pe care se afla si inainte. Cum situatia de joc initiala s-a schimbat 
+			va trebui inlocuita cu retract/assert.
+	In final am doua reguli care inlatura faptele world si copy_world pentru a avea in
+final doar acele fapte cu win.

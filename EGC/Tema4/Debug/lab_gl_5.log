@@ -1,0 +1,18 @@
+﻿Build started 5/27/2014 3:42:52 PM.
+     1>Project "D:\AN III\Sem I\EGC\EGC_Tema4_Bojin_Andrei_333CA\lab_EGC_gl_5_student\lab_gl_5.vcxproj" on node 2 (Build target(s)).
+     1>PreBuildEvent:
+         copy D:\AN III\Sem I\EGC\EGC_Tema4_Bojin_Andrei_333CA\lab_EGC_gl_5_student\dependente\freeglut\freeglut.dll D:\AN III\Sem I\EGC\EGC_Tema4_Bojin_Andrei_333CA\lab_EGC_gl_5_student\Debug
+         copy D:\AN III\Sem I\EGC\EGC_Tema4_Bojin_Andrei_333CA\lab_EGC_gl_5_student\dependente\glew\glew32.dll D:\AN III\Sem I\EGC\EGC_Tema4_Bojin_Andrei_333CA\lab_EGC_gl_5_student\Debug
+         
+         :VCEnd
+         The system cannot find the file specified.
+         The system cannot find the file specified.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppCommon.targets(124,5): error MSB3073: The command "copy D:\AN III\Sem I\EGC\EGC_Tema4_Bojin_Andrei_333CA\lab_EGC_gl_5_student\dependente\freeglut\freeglut.dll D:\AN III\Sem I\EGC\EGC_Tema4_Bojin_Andrei_333CA\lab_EGC_gl_5_student\Debug
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppCommon.targets(124,5): error MSB3073: copy D:\AN III\Sem I\EGC\EGC_Tema4_Bojin_Andrei_333CA\lab_EGC_gl_5_student\dependente\glew\glew32.dll D:\AN III\Sem I\EGC\EGC_Tema4_Bojin_Andrei_333CA\lab_EGC_gl_5_student\Debug
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppCommon.targets(124,5): error MSB3073: 
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppCommon.targets(124,5): error MSB3073: :VCEnd" exited with code 1.
+     1>Done Building Project "D:\AN III\Sem I\EGC\EGC_Tema4_Bojin_Andrei_333CA\lab_EGC_gl_5_student\lab_gl_5.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.08

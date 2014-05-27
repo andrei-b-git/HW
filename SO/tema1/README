@@ -1,0 +1,28 @@
+/* Tema 1: Multi-platform Development
+ *
+ * nume: Bojin Andrei Florian
+ * grupa/seria: 333 CA
+*/
+
+	In cadrul implementarii temei m-am folosit de o structura de tipul:
+
+	struct bucket {
+		char *word;	// campul continand cuvantul
+		struct bucket *next; // campul continand legatura la urmatorul element
+	};
+
+	Aceasta structura retine toate campurile necesare unui element dintr-un
+bucket sau poate fi chiar pe post de bucket. In consecinta, hashtable-ul va
+fi un vector dinamic de aceste structuri, cu dimensiunea egala cu size-ul dat
+ca parametru.
+	Pe masura citirii comenzilor de la tastatura, acestea sunt procesate si este
+apelata functia corespunzatoare. Procesarea sa realizat cu functia strtok si a
+fost de asemenea necesara eliminarea \n din comenzile citite cu fgets.
+	Fiecare functie (add, remove, find, ...) trateaza un bucket din hashtable
+ca pe o lista inlantuita, realizandu-se alocari/dezalocari pe parcursul lor.
+S-a tratat cazul in care existau fisiere de output care se deschideau in modul
+append precizat in tema. S-au tratat toate erorile si cazurile particulare care
+se puteau intalni prin mesaje de eroare si incheierea executiei.
+	Un comportament mai special il are functia resize care, asa cum s-a precizat
+in tema, ia un hashtable nou de dimensiunea actualizata si transfera in acesta
+fiecare cuvant din hashtable-ul vechi, eliberandu-se memoria folosita de acesta.

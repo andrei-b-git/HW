@@ -1,0 +1,11 @@
+nume: Bojin
+prenume: Andrei Florian
+grupa/seria: 313CA
+
+In automat.h am inclus semnatura functiei int restul(int code) din automat.c
+care calculeaza restul, deoarece la compilare imi apareau warninguri.
+Legat de comentarii, in automat.c functiile sunt deja comentate, iar in 
+tema2.c se poate da seama usor despre ce este vorba din numeroasele printf-uri.
+
+La aceasta tema am intampinat destule probleme, dar in final am gasit-o 
+ca pe o experienta placuta si folositoare.

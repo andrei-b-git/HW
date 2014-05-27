@@ -1,0 +1,24 @@
+Tokenul cautat nu exista
+
+CAUTARE
+*PARTE_DE_VORBIRE : NNP
+**TOKEN : Atlanta
+***FRECVENTA : 1
+
+CAUTARE
+*PARTE_DE_VORBIRE : NNP
+**TOKEN : Fulton
+***FRECVENTA : 1
+
+CAUTARE
+*PARTE_DE_VORBIRE : NNP
+**TOKEN : Jury
+***FRECVENTA : 1
+
+CAUTARE
+*PARTE_DE_VORBIRE : DT
+**TOKEN : the
+***FRECVENTA : 2
+
+Tokenul cautat nu exista
+

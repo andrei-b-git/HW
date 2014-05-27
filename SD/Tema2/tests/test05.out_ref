@@ -1,0 +1,30 @@
+AFISARE
+*PARTE_DE_VORBIRE : NNN
+**UNKNOWN
+
+AFISARE
+*PARTE_DE_VORBIRE : NN
+**(TOKEN : election, FRECVENTA : 1)
+**(TOKEN : evidence, FRECVENTA : 1)
+**(TOKEN : investigation, FRECVENTA : 1)
+**(TOKEN : place, FRECVENTA : 1)
+
+AFISARE
+*PARTE_DE_VORBIRE : NN
+**(TOKEN : evidence, FRECVENTA : 1)
+**(TOKEN : investigation, FRECVENTA : 1)
+**(TOKEN : place, FRECVENTA : 1)
+
+AFISARE
+*PARTE_DE_VORBIRE : NN
+**(TOKEN : evidence, FRECVENTA : 1)
+**(TOKEN : place, FRECVENTA : 1)
+
+AFISARE
+*PARTE_DE_VORBIRE : NN
+**(TOKEN : place, FRECVENTA : 1)
+
+AFISARE
+*PARTE_DE_VORBIRE : NN
+**UNKNOWN
+

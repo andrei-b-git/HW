@@ -1,0 +1,25 @@
+/* nume: Bojin
+ * prenume: Andrei Florian
+ * grupa/seria: 323 CA
+ */
+
+Pasii realizati in abordarea temei:
+
+1. Se analizeaza fisierul dns_config si se citeste cate un server de DNS valid.
+2. Se construieste mesajul de cerere conforma specificatiilor din RFC.
+3. Se trimite cererea la server.
+4. Se primeste raspunsul de la server.
+5. Se afiseaza pe rand, folosind functii diferite continutul raspunsului de la server. Se respecta ordinea Header, Question, Answer, Authority, Additional.
+
+Observatii:
+* Formatul mesajelor respecta intru-totul specificatiile din RFC
+* Din flagurile ANCOUNT, NSCOUNT, ARCOUNT din Header deducem daca avem sau nu resurse ANSWER, AUTHORITY si ADDITIONAL.
+* Resolverul de DNS intelege si afiseaza conform specificatiilor situatiile in care apare compresia numelor de domenii.
+* NU s-au folosit niciuna din functiile gethostbyname() si gethstbyaddr()
+
+Specificatii:
+* La afisare ma folosesc de o functie care merge 'din dimensiune in dimensiune' si afiseaza caracterele intermediare, pana cand ajunge pe o dimensiune nula 
+( care marcheaza sfarsitul de sir[NULL]). Singura chestiune mai dificila a fost implementarea recursiva a functiei de afisare in cazul pointerilor ( offset ). 
+Exista acea situatie in care un nume de domeniu era reprezentat de un pointer, iar numele de domeniu aflat la offsetul respectiv sa se termine si el cu un pointer, etc.
+
+Executabilul: my_client_dns se obtine ruland "make".

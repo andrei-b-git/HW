@@ -1,0 +1,48 @@
+nume: Bojin
+prenume: Andrei Florian
+grupa/seria: 313 CA
+
+	Task 1.1 & 1.2: Am parcurs matricea A si am numarat elementele nenule,
+retinandu-le in nzval si indicele coloanei/liniei pe care se afla fiecare in
+colind/rowind. La fiecare linie/coloana testam daca nr elem nenule s-a schimbat 
+fata de cel de pe linia/coloana anterioara. Daca da, aplicam formula: 
+rowptr/colptr (i+1) = nz+1; pt calculul lui rowptr/colptr, daca nu, atunci 
+marcam cu -1 linia/coloana nula. 
+
+	Task 1.3 & 1.4: Am ales sa aplic algoritmul considerand matricea A 
+inferior triunghiulara. In ceea ce priveste algoritmul in sine, am incercat
+la fiecare pas sa inlocuiesc A(i,j) in functie de cei 3 vectori, lucru pe 
+care l-am observat mai mult pe o foaie de hartie si care imi e destul de 
+greu sa-l explic. Cel mai bine e sa urmaresti algoritmul pas cu pas.
+
+	Task 1.5: In alegerea rezolvarii unui sistem liniar care are la baza 
+o matrice rara, am luat in considerare mai mult numarul de conditii care trebuiesc
+indeplinite si strictetea acestora. Astfel, am ales 2 cazuri:
+* n<1000; Folosim Metoda Eliminarii Gaussiene, deoarece, spre deosebire de 
+          celelalte metode directe, singura conditie care trebuie indeplinita 
+	  este ca elementele de pe diagonala sa fie nenule (matricea sa fie 
+	  nesingulara), o conditie mult mai usor de indeplinit decat cea de la
+	  Crout/Dolittle (determinanti de colt ai matricii A sa fie nenuli si 
+	  apoi elem de pe diagonala matricii U/L sa fie toti 1). Cu atat mai usor de
+	  indeplinit fata de cea de la Choleski care necesita ca A sa fie simetrica
+	  si pozitiv definita.
+* n>1000; Voi folosi Metoda Jacobi, deoarece dintre ea, Gauss-Siedel si suprarelaxarea, 
+	  are de asemenea cele mai putine conditii de indeplinit si anume ca A
+	  sa fie diagonal dominanta si raza spectrala in modul mai mica ca 1.
+
+	Task 2.1 & 2.2: Am inceput prin calcularea numarului de biti de 
+paritate necesati codului Hamming, obtinand fie lungimea codului Hamming, fie
+cea a codului initial. 
+	Apoi faceam transferul codului primit ca string intr-un
+vector si de asemenea transferul codului initial in codul Hamming, pe pozitiile 
+diferite de cele ale bitilor de paritate, daca era nevoie. Dupa aceasta, 
+parcurgeam bitii de paritate si ii (re)calculam, facand suma bitilor corespunzatori
+fiecarui bit de paritate. Suma aceasta se realiza pornind de la bitul de paritate 
+respectiv si parcurgand atatia biti cat era bitul de paritate, dupa care saream 
+peste atatia biti cat era bitul de paritate si tot asa pana la sfarsitul codului.
+Dupa calculul sumei, bitul de paritate era 0 sau 1, in functie de paritatea acesteia.
+Daca acesta era diferit fata de cel din codul Hamming initial, atunci adunam bitul 
+de paritate gresit la pozitia bitului care trebuia corectat. La sfarsitul parcurgerii
+corectam bitul gresit daca era cazul.
+	In final realizam transformarea codului Hamming din vector in string 
+cu eliminarea spatiilor goale.

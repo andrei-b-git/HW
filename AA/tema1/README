@@ -1,0 +1,23 @@
+nume: Bojin
+prenume: Andrei Florian
+grupa/seria: 323 CA
+
+	Pentru implementarea rezolvarii problemei am folosit inca doi vectori,
+pe langa cel care retine secventa cu preturile fiecarei luni. Unul dintre
+cei doi vectori este pentru retinerea numarului de cadouri potrivite ca pret
+pt fiecare indice din vectorul cu preturile, iar urmatorul vector contine
+indicii cadourilor precedente, bune ca pret pt fiecare indice din vectorul
+de preturi.
+	Pt fiecare cadou/pret din vectorul de preturi, realizez o alta parcurgere
+cu toate cadourile/preturile pana la indicele respectiv, calculand pe parcurs
+numarul de cadouri care respecta conditia pretului si retinand indicile
+cadoului precedent, bun ca pret.
+	Dupa aceasta a 2a parcurgere, verific daca avem un nou nr maxim de
+cadouri care respecta conditia pretului, si retin in vectorul de indici
+precedenti, indicile cadoului precedent, bun ca pret.
+	La sfarsit realizez afisarea pornind de la ultimul cadou bun ca pret din
+secventa maxima de cadouri care respecta conditia si, cu ajutorul vectorului
+de indici precedenti, afisez secventa de indici in mod recursiv in ordinea
+crescatoare a preturilor.
+
+Latimea taburilor e 4.

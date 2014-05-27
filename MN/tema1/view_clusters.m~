@@ -1,0 +1,17 @@
+% outputs a graphical representation of the clustering solution
+function view_clusters(points, centroids)
+	% TODO graphical representation coded here
+	[NC, n]=size(centroids);
+	[m, n] = size (points);
+	AUX = zeros (m, NC);
+	Color = zeros(m,3);
+  	for i = 1:NC
+      		AUX (:, i) = sum (( points - repmat (centroids (i, :), m, 1)).^2, 2);
+  	endfor
+    	[t,c] = min (AUX, [], 2);
+	for i = 1:m
+		Color(i,c(i)) = 1;
+	endfor 
+	scatter3(points(:, 1), points(:, 2), points(:, 3), [], Color);
+end
+

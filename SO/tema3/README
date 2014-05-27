@@ -1,0 +1,46 @@
+/*
+ *	Tema 3 SO: Memorie virtuala
+ *
+ *	nume/prenume: 	Bojin Andrei Florian
+ *	grupa/seria: 	333 CA
+*/
+
+Implementare:
+
+	Am folosit enumerarile si structurile din enuntul temei si am mai creat o
+strutura care reprezinta o abstractizare a unei zone de memorie, avand un vector
+de aceste zone care sunt alocate in vm_alloc.
+
+	Am implementat functiile:
+- vmsim_init: initializare a bibliotecii, in care realizez setarea handler-ului
+de exceptie pentru tratarea semnalului SIGSEGV;
+
+- vmsim_cleanup: cleanup a bibliotecii, in care realizez setarea handler-ului
+de exceptie pentru tratarea semnalului SIGSEGV prin revenirea la handler-ul 
+anterior;
+
+- vm_alloc: alocare a unei zone de memorie, in care:
+	- verificam sa nu existe mai multe pagini fizice decat virtuale;
+	- generez fisiere temporare pe post de RAM si SWAP;
+	- creez adresa de start a noii zone de memorie;
+	- realoc vectorul de zone de memorie pe masura ce sunt adaugate noi zone;
+	- copiez si setez campurile structurii noii zone de memorie;
+
+- vm_free: eliberare a unei zone de memorie, in care verific daca zona de memorie 
+nu este deja eliberata, caut zona de memorie cu adresa de start respectiva, o
+eliberez si inchid fisierele folosite pe post de RAM si SWAP;
+
+- current_handler: pe post de handler de exceptie pentru tratarea semnalului SIGSEGV
+In aceasta functie:
+	- identific pagina si zona de memorie unde a avut loc SIGSEGV;
+	- vad in ce stare se gaseste pagina de unde a avut loc SIGSEGV:
+		- daca este in RAM: schimbam drepturile paginii din READ in WRITE;
+		- daca este in SWAP: facem swap in;
+		- daca zona nu a fost alocata: vedem daca putem gasi o zona libera in RAM 
+		pt pagina. Daca a mai ramas loc in RAM se incearca plasarea paginii aici,
+		daca nu, facem swap out.
+
+- swap_page: swap a unei pagini care nu mai are loc in RAM cu prima pagina din RAM,
+pe care o punem in SWAP, iar pagina din SWAP care nu a mai avut loc in RAM este
+luata din SWAP si pusa in RAM, cu optiunea de swap in sau swap out.
+

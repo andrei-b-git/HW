@@ -1,0 +1,16 @@
+tests/corpus/corpus02.txt
+test05.out
+13
+-d election NNN 100
+-p NNN
+-d steaua NN 100
+-d rapid NN 0
+-p NN
+-d election NN 100
+-p NN
+-d investigation NN 1
+-p NN
+-d evidence NN 1
+-p NN
+-d place NN 1
+-p NN

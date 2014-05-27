@@ -1,0 +1,5 @@
+tests/corpus/corpus02.txt
+test04.out
+2
+-d Grand NNP 0
+-p NNP

@@ -1,0 +1,10 @@
+nume: Bojin
+prenume: Andrei Florian
+grupa: 313CA
+
+Rezolvarea problemei presupune urmatorii pasi:
+-declarea variabilelor, numere reale
+-citirea coordonatelor punctului A
+-citirea coordonatelor punctului B
+-calcularea distantei dintre punctele A si B
+-afisarea distantei dintre punctele A si B, aliniata la stanga cu 3 zecimale (trunchiata, nu rotunjita)

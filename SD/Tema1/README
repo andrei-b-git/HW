@@ -1,0 +1,31 @@
+nume: Bojin
+prenume: Andrei Florian
+grupa/seria: 313 CA
+
+	Am implementat tema intr-o singura sursa, unde la inceput se gasesc
+declaratiile de structuri si clasa coada impreuna cu metodele din ea.
+	In implementarea temei am folosit o coada de structuri in care treceam 
+fiecare comanda odata ce o citeam si o descompuneam in parametrii, trecand 
+fiecare parametru intr-un camp al structurii si apoi toata structura in coada.
+Citirea comenzilor s-a facut toata odata, si nu pe parcurs.
+	Odata ce citirea si prelucrarea datelor de intrare s-a terminat, am 
+putut trece la implementarea algoritmului propriuzis:
+-algoritmul se repeta pana cand nu mai exista procese in executie sau de exe-
+cutat sau pana cand nu mai exista comenzi de implementat;
+-la fiecare pas testam in ordine: 
+	* daca exista comenzile WAIT sau SIGNAL al caror (timp de aparitie)+1
+	  sa coincida cu timpul curent, si daca da, atunci faceam operatiile 
+	  specifice fiecarei comenzi;
+	* apelam scheduler-ul si incercam punerea in executie a procesului cel 
+	  mai prioritar daca era cazul, daca nu afisam NOP;
+	* daca exista comanda NEW al carei timp de aparitie sa coincida cu 
+	  timpul curent, si daca da, cream un nou proces si il puneam in coada
+	  ready;
+	* daca exista un proces in executie la sfarsitul unitatii de timp,
+	  atunci scadeam timpul lui de executie si maream contorul timpului cat
+	  a stat in executie. In momentul in care acesta ajungea 3 treceam 
+	  procesul in coada ready sau ii incheiam executia daca timpul de exe-
+	  cutie devenise 0;
+	La inceput mi s-a parut o tema destul de usoara, dar pe parcurs mi-a 
+creat destule dificultati prin multitudinea de cazuri particulare si prin faptul 
+ca in enunt nu era dezvaluit modul de comportare in fiecare caz. 

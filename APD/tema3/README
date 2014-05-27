@@ -1,0 +1,53 @@
+/*
+ *	Tema 3 APD: Calcul paralel folosind MPI
+ *
+ *	nume: 		 Bojin
+ *	prenume: 	 Andrei Florian
+ *	grupa/seria: 333 CA
+*/
+
+
+1. Continut arhiva:
+
+	-tema3.c = sursa ce contine implementarea temei;
+	-makefile
+	-README
+
+
+2. Utilizare:
+
+	In primul rand se va rula make sau make build pentru crearea executabilului
+main. Acesta se va rula cu comanda:
+
+	mpirun -n N ./main input output
+
+unde:
+	-N = numarul de threaduri;
+	-input = fisier de intrare;
+	-output = fisier de iesire;
+
+	Pentru stergerea executabilului se va rula make clean.
+
+
+3. Detalii implementare:
+
+	Am ales sa imi impart matricea care retine imaginea in fasii pe care le voi
+imparti ca taskuri fiecarui thread.
+	Astfel la inceput dupa ce se realizeaza citirea din fisier si alocarea
+matricii imaginii, threadul master va calcula lungimea fiecarei fasii si
+a indicelui de start de unde va incepe impartirea lor la celelalte threaduri.
+Fiecare fasie este incapsulata intr-o structura de tip Task, cu o pozitie de
+start si lungimea fasiei iar threadurile opereaza in limitele unui astfel de
+task.
+	Pornind de la taskul fiecarui thread, se va decide apoi in functie de tipul
+multimii de calculat, ce algoritm se va aplica (Mandelbrot sau Julia), in urma
+caruia se va obtine pentru fiecare thread un vector cu solutii partiale, de dim
+egala cu fasia pe care a lucrat threadul. Acest vector va fi trimis inapoi la
+threadul master care il va mergeui cu matricea care retine imaginea, inlocuind
+in zona fasiei respective.
+	In final, threadul master va afisa matricea/imaginea.
+
+	Pentru a putea trimite tipul de date al structurii Task in functiile de
+MPI_Send si MPI_Recv, a trebuit sa folosesc un tip MPI_Datatype in care imi
+retin toate campurile structurii Task. Astfel lucrez cu un singur tip care 
+contine mai multe tipuri interne. 

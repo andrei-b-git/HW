@@ -1,0 +1,98 @@
+/*	nume: Bojin
+ *	prenume: Andrei Florian
+ *	grupa/seria: 323 CA
+*/
+
+* PC, Tema1 *
+
+Compilare: make
+Pornire + verificare transfer: ./run_experiment.sh
+
+Unităti de măsură pentru parametrii din script:
+	* SPEED: Mb/s
+	* DELAY: ms
+	* LOSS: procentaj cadre pierdute
+	* CORRUPT: procentaj cadre corupte
+
+Domeniu de valori:
+	* SPEED = 5 .. 20 Mb/s
+	* DELAY = 10 ... 1000 ms
+	* LOSS = 0 ... 10 %
+	* CORRUPT = 0 .. 10% / 100 %
+	* TASK_INDEX = 0, 1, 2, 3 și 4
+
+Rezolvare:
+	
+Pentru taskurile 0 si 1:
+
+	Rezolvarea taskurilor 0 si 1 este comuna, particularizand pentru taskul 1, in cazul in
+care se pierd packete (LOSS!=0).
+
+
+
+SEND.C:
+	Dupa retinerea parametrilor trimisi de catre run_experiment (TASK_INDEX, FILENAME, SPEED,
+DELAY), afisez cateva date/statistici despre protocolul folosit, cum ar fi:
+	- Filename
+	- task_index
+	- speed
+	- delay
+	- bdp, calculat cu formula: bdp = speed * delay * 1000;
+	- filesize
+	- frame_size = MSGSIZE + sizeof(int), adica dimensiunea mesajului + dimensiunea campului 
+len al structurii msg
+	- COUNT, (numarul total de frameuri) calculat cu formula: COUNT = filesize / FRAME_SIZE;
+	- window, (dimensiunea ferestrei necesare pentru a umple legatura) calculat cu formula: 
+window = bdp / (FRAME_SIZE * BITS_NO);
+
+	De asemenea, afisez si TIMEOUT-ul calculat dupa formula max(1,2*delay).
+
+	In implementarea protocolului, am folosit un header auxiliar (lib1.h), unde am personalizat
+strutura msg cu structura my_pkt. Astfel, campul payload al structurii msg va contine structura 
+my_pkt care la randul ei va contine campurile SEQ si payload. Datele efective vor fi retinute in
+my_pkt.payload care va avea dimensiunea MSGSIZE - sizeof(int).
+	Campul SEQ al structurii my_pkt va fi folosit pentru a identifica tipul de packet trimis,
+dar si pentru a tine evidenta secventelor de cadre trimise si receptionate:
+	SEQ = -2 ---> packet cu continut Filename sau ACK pentru Filename;
+	SEQ = -1 ---> packet cu continut Filesize sau ACK pentru Filesize;
+	SEQ = 0 -> COUNT ---> packete care contin date din fisier sau ACK pentru acestea, numerotate
+de la 0 la numarul total de cadre de trimis/receptionat;
+
+	Incep prin a trimite receiverului numele de fisier, filename, cu SEQ=-2 dupa care astept ACK,
+asigurandu-ma ca nu continui cu transferul datelor pana cand receiverul a primit cu succes filename.
+	Procedez similar cu dimensiunea fisierului, filesize, cu SEQ=-1.
+	Dupa ce numele de fisier si dimensiunea acestuia au fost trimise cu succes, pot incepe trans-
+ferul de date din fisier. Initial, pentru a folosi la maxim legatura de date, voi trimite un numar de
+cadre egal cu fereastra window, fara sa astept ACK. Astfel voi umple legatura de date, pana cand ACK-ul de la primul cadru trimis, va sosi la sender. Ma asigur ca fiecare cadru trimis are un nr de sec-
+venta unic (seq) pe care il incrementez de fiecare data cand trimit un nou cadru. De asemenea, in
+cazul in care unele cadre se vor pierde pe legatura, retin fiecare packet intr-un buffer de dimensiu-
+nea ferestrei window. Acest buffer l-am ales ca o strutura de date de tip coada.
+	Dupa ce am trimis o fereastra de cadre, voi astepta mai intai ACK de la primul cadru trimis,
+dupa care voi trimite cate un cadru o data. In cazul in care primesc timeout in asteptarea unui ACK,
+voi retrimite cadru cu cadru, tot ce am retinut intre timp in buffer. In caz ca ce retrimit se va
+pierde din nou, este necesar ca dupa ce il retrimit si il scot din buffer, sa-l rebag in buffer.
+Daca primesc ACK, nu poate sa fie decat un ACK corespunzator unei secvente de cadru corecta, deoarece
+in receiver voi trimite ACK cu secventa de cadru X doar dupa ce am primit-o pe aceasta. Dupa primirea
+ACK-ului, pot sa scot din buffer cadrul cu secventa respectiva si sa retrimit alt cadru.
+	In final, protocolul se incheie in cazul in care nu mai am de citit nimic din fisier, iar 
+bufferul este gol.
+
+
+
+RECV.C:
+	Incep prin a astepta packetele cu continut Filename si Filesize de la sender. Dupa ce le pri-
+mesc si ma asigur ca au secventa corespunzatoare (-2 si -1), retin datele din payload si trimit ACK
+cu secventa asociata packetului primit. 
+	De asemenea voi prelucra numele fisierului astfel incat sa obtin si sa deschid spre scriere 
+un nou fisier cu numele recv_filename.
+	Dupa acestea, sunt gata sa primesc packete cu date din fisier. La fel ca la sender, voi con-
+toriza numarul secventei primite in seq. Odata ce am primit packetul si acesta are secventa corecta,
+voi trimite un packet cu payload fals dar cu numarul secventei ultime primite corect, adica pe scurt,
+un ACK de seq, dupa care incrementez seq, reprezentand noua secventa de asteptat.
+	In cazul in care primesc un packet cu eroare sau cu secventa necorespunzatoare, nu fac nimic,
+dand posibilitatea senderului sa trimita in continuare packete pana primeste timeout.
+	Dupa ce am primit un packet cu succes voi scrie datele din payload in fisierul de output si
+voi actualiza ce cantitate de informatie am primit si scris pana acum in fisier. In momentul in care
+aceasta este de dimensiunea fisierului primit la inceput (filesize) inseamna ca am transferat cu suc-
+ces toate datele in noul fisier, moment in care protocolul de transfer se va incheia.
+

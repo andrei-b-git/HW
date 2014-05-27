@@ -1,0 +1,44 @@
+/*
+* nume: Bojin
+* prenume: Andrei Florian
+* grupa/seria: 323 CA
+*/
+
+Problema 1:
+	Am ales sa o rezolv folosind binary search, incercand sa caut distanta ideala,
+luand drept pivot (distanta initiala) jumatatea distantei dintre primul si ultimul
+stalp si folosind o functie "ok" care sa-mi spuna daca aceasta distanta este mai
+mica sau mai mare decat distanta cautata, o rezolvare asemanatoare cu cea de la
+problema GuessMe de la laborator. Pentru detalii suplimentare consultati comentariile
+din sursa. 
+	Complexitatea este: O(N*log(L)).
+
+Problema 2:
+	Am folosit recurenta:
+
+	[…]…..[….]…..[…..]
+	i=1 in interiorul intervalelor
+	i=0 in afara lor 
+	f(T,N,i) este:
+	a) Pt i=0: max (f(T,N-1,0), f(T-1,N-1,1))
+	b) Pt i=1: max (f(T,N-1,0), f(T-1,N-1,1)+Cost(n-N+1)) unde n=nr. total de elem
+
+	In implementare, am folosit o matrice tridimensionala, [T][N][2]. Ultima dimensiune
+a matricei are dimensiunea 2 si poate lua doua valori, 0 sau 1. 0 este caracteristic unei
+stari in afara intervalurilor luate pentru a maximiza profitul, 1 este caracteristic 
+interiorului intervalelor cu pricina.
+	La reconstruirea solutiei, am pornit invers, de la solutie, care se afla pe ultima
+coloana a matricei, luand-o pe diagonala in sus cat de mult se poate.
+	Am atasat in arhiva cateva poze cu exemple, cu matricea tridimensionala si 
+reconstruirea solutiei pe aceasta, pentru claritate.
+	Pentru detalii suplimentare consultati comentariile din sursa. 
+	Complexitatea este: O(N*T), O(N^2) in cel mai defavorabil caz.
+
+Problema 2-bonus:
+	Am cautat minimul din vectorul de costuri, am reconstruit alt vector care era
+practic vechiul vector dar rotit la stanga, astfel incat minimul sa cada pe prima
+pozitie, dupa care am aplicat pur si simplu algoritmul de la problema 2 pe noul
+vector construit, avand grija ca la reconstruirea intervalelor sa iau in calcul
+offsetul (deplasamentul) noului vector fata de vectorul initial. Pentru detalii 
+suplimentare consultati comentariile din sursa. 
+	Complexitatea este: O(N*T), O(N^2) in cel mai defavorabil caz.

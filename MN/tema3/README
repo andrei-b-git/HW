@@ -1,0 +1,25 @@
+nume: Bojin
+prenume: Andrei Florian
+grupa/seria: 313 CA
+
+	Am folosit veriunea 3.2.4 de GNU Octave.
+	In implementarea taskurilor am folosit o structura comuna:
+-citirea imaginii si retinerea acesteia sub forma de matrice cu ajutorul 
+ functiei imread;
+-construirea numelui fisierului de output;
+-calcului matricii finale specifice fiecarui task:
+	-task1: am scazut un procent din matricea initiala, egal cu rata citita;
+	-task2: am extractat o submatrice din matricea initiala, astfel incat
+		indicii sa respecte o submatrice centrala, jumate din cea initiala;
+	-task3.1: m-am folosit de o matrice auxiliara pe care am prelucrat-o prin
+	 	  intermediul functiilor reshape si repmat, pornind de la matricea
+		  initiala;
+	-task3.2.1: m-am folosit de o matrice auxiliara, initial zero si de dimen-
+		    siunea celei finale, unde am plantat pe rand pe pozitiile 
+		    favorabile elementele matricii initiale;
+	-task3.2.2: asemanator rezolvarii de la taskul precedent, numai ca a fost
+		    nevoie de plantarea unor pozitii in plus unde am inserat 
+		    mediile aritmetice ale elementelor adiacente;
+-afisarea matricii sub forma de imagine cu ajutorul functiei fprintf, deoarece
+ am observat ca functia imwrite poate provoca neplaceri in functie de versiunea
+ de octave folosita.

@@ -1,0 +1,23 @@
+nume: Bojin
+prenume: Andrei Florian
+grupa/seria: 313 CA
+
+	In implementare am folosit urmatoarele clase:
+	-linked_list.h = clasa pentru lista de adiacenta a fiecarui task;
+	-graph.h = clasa pentru graful de dependente unde am definita si metoda de
+			   planificare;
+	-procesor.h = clasa pentru urmarirea evolutiei procesoarelor;
+	
+	In main (tema4.cpp) am realizat citirea si prelucrarea datelor din fisiere 
+si punerea acestora intr-un graph orientat in sens invers, adica lista de 
+adiacenta a unui nod continand nodurile care pointeaza la nodul respectiv, si 
+nu invers, pentru a avea acces usor la dependentele fiecarui nod.
+	Planificarea in sine este explicata cu comentarii in metoda planificare a 
+clasei graph din graph.h. 
+
+P.S: Am folosit tab width 4 pe headerul de la graphuri si linked_list puse
+	 de Mugurel Andreica pe cs.curs.pub.ro (si pe care le-am adaptat in functie
+	 de nevoile mele) asa ca s-ar putea ca unele linii sa nu fie aliniate daca
+	 se foloseste un alt tab width decat 4.
+	 De asemenea am comentat toate sursele/headerele in afara de linked_list.h
+	 deoarece aceasta nu a suferit modificari fata de cea a lui Mugurel Andreica.

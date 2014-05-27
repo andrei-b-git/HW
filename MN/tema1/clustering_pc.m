@@ -1,0 +1,36 @@
+% computes the NC centroids corresponding to the given points using K-Means
+function centroids = clustering_pc(points, NC)
+	centroids = [];
+	[m, n] = size (points);
+	% TODO K-Means code
+	if(NC == m)
+		centroids = points;
+	else
+		% alegerea aleatoare a NC centroizi distincti din multimea de puncte
+		id = randperm (m) (1:NC);
+		centroids = points (id, :);
+		% algoritmul propriuzis
+		AUX = zeros (m, NC);	%o matrice in care retin pt fiecare pct distanta la centroizi
+		k = 0;	%numarul de iteratii
+		pcentroids = centroids;
+		while (1)
+			%construirea matricii AUX
+	  	        for i = 1:NC
+	      			AUX (:, i) = sum (( points - repmat (centroids (i, :), m, 1)).^2, 2);
+	  	        endfor
+			%alegerea distantelor minime si retinerea in "c" a centroizilor buni
+	    		[t,c] = min (AUX, [], 2);
+			%recalcularea centroizilor
+	    		for i = 1:NC
+	      			centroids (i, :) = mean (points (c == i, :));
+	    		endfor
+			k++;	%marirea nr-ului de iteratii
+			%conditia de terminare a algoritmului
+			%am pus o cond in plus in cazul in care matricea centroizilor se schimba usor dar la infinit 
+			if (all (centroids (:) == pcentroids (:)) || k >= Inf)
+	      			break;
+			endif
+	    			pcentroids = centroids;
+		endwhile
+	end
+end

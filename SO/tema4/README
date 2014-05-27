@@ -1,0 +1,55 @@
+/*	Tema 4: Planificator de threaduri
+ *
+ *	nume: Bojin Andrei Florian
+ *	grupa/seria: 333 CA
+*/
+
+1. Continut arhiva:
+
+	- so_scheduler.h
+	- so_scheduler.c
+	- vector.h
+	- vector.c
+	- Makefile
+	- README
+
+2. Implementare:
+
+	Pentru a reprezenta un thread, am folosit o structura cu campurile:
+- pthread_t tid; // id-ul threadului
+- so_handler *handler; // handler-ul
+- unsigned prio; // prioritatea
+- int waiting; // este 0/1
+- sem_t sem; // semafor specific threadului
+
+	In implementare, am lucrat cu un vector static de structuri de tipul thread
+cu dimensiunea maxima: MAX_NUM_THREADS, definit la inceput drept 1000.
+	Semafoarele din structura m-au ajutat in sincronizarea threadurilor. De fiecare data
+cand cream un nou thread in functia so_fork, inchidem semaforul threadului de creat in
+rutina acestuia, punandu-l in asteptare pana cand va fi folosit in scheduler. Numai primul
+thread creat are semaforul deschis, nefiind nevoie sa fie sincronizat, acesta ruland de la
+inceput.
+	In functia scheduler, realizez un Round Robin preemtiv, indiferent, dupa care verific
+daca s-a terminat cuanta de timp a threadului curent sau acesta este in asteptare (campul
+waiting) si daca da, atunci incrementez pozitia pe care se afla prioritatea threadului
+curent in lista de threaduri cu o aceeasi prioritate (acesta devenind practic mai prioritar).
+De aceasta lista ma folosesc in Round Robin unde, incep prin a parcurge in ordinea inversa
+a prioritatilor pana la prioritatea threadului curent, cautand pt fiecare prioritate, in
+lista acesteia, primul thread care nu este pus in asteptare. Acest thread, odata gasit,
+avand o prioritate mai mare decat threadul curent poate lua locul threadului curent,
+reinitializandu-i-se cuanta de timp. In caz in care nu gaseste alt thread in afara de threadul
+curent care sa nu fie in asteptare, reinitializeaza cuanta threadului curent. In finalul 
+functiei scheduler realizez din nou Round Robin.
+	Deci pentru a imi stabili ordinea threadurilor dupa prioritati, necesara in Round Robin,
+folosesc un vector static iterat dupa prioritati, fiecare element continand la randul lui
+o structura de vector dinamic care poate fi redimensionat, necesar ordonarii threadurilor
+cu aceeasi prioritate.
+	Pentru devices I/O, foloses un vector dinamic, iterat dupa nr de device-uri, fiecare
+element continand la randul lui aceeasi structura de vector dinamic care poate fi
+redimensionat, in scopul retinerii threadurilor care apartin aceluiasi device I/O.
+	In functia so_wait, pun threadul curent in asteptare si il trec in lista deviceului pe
+care se face wait, iar in functia so_signal scot toate threadurile din asteptare, din lista
+deviceului in cauza.
+	Dintr-un motiv care imi scapa, nu stiu de ce imi pica testul 5, de verificare a
+parametrilor functiei so_fork. Am realizat verificarea nenulitatii handlerului primit ca
+parametru, dar testul ramane picat.

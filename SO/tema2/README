@@ -1,0 +1,27 @@
+/**
+ *	Tema 2 SO: Mini-shell
+ *
+ *	nume: Bojin
+ *	prenume: Andrei Florian
+ *	grupa/seria: 333CA
+ */
+
+	In cadrul implementarii am modificat doar fisierul utils-lin.c.
+
+	In crearea de noi procese m-am folosit de functia fork() din laboratorul
+de procese si de functia waitpid() pentru a astepta terminarea executiei 
+acestora. In cadrul functiei parse_simple() a trebuit sa evaluez si statusul
+terminarii procesului si sa tratez cazul esuarii executiei comenzii cu comanda
+execvp.
+	Functiile parse_command, do_in_parallel, shell_exit si shell_cd au fost
+destul de simple si intuitive de implementat. In functia shell_cd a trebuit
+sa ma documentez in privinta functiei chdir din C. In functia do_in_parallel
+asiguram executia in paralel prin parsarea unei comenzi diferite pentru procesul
+copil si a altei comenzi pentru procesul parinte.
+	Mai dificil a fost in cadrul functiei do_on_pipe unde am folosit functia
+pipe(fd) pentru a crea un pipeline de vectorul fd ce contine 2 file-descriptori
+si cu ajutorul lui dup2 realizam redirectarea iesirii primei comenzi ca intrarea
+celei de-a doua comenzi.
+	De asemenea, in cadrul functiei parse_simple mai dificil a fost intelegerea
+structurilor interne simple_command_t si word_t si a modului cum sa le folosesc.
+

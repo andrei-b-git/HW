@@ -1,0 +1,27 @@
+nume: Bojin
+prenume: Andrei Florian
+grupa/seria: 313 CA
+
+Pentru implementarea rezolvarii temei am ales sa retin in memorie matricile dinamice,
+deoarece, cu toate ca consuma multa memorie RAM, favorizeaza o viteza mai mare de rulare
+a programului decat o retinere in fisiere si operatii cu acestea. 
+Initial am incercat rezolvarea cu operatii cu fisiere dar rularea programului dura prea mult.
+Am declarat global 2 vectori de structuri care sa ma ajute sa retin matricile si submatricile,
+dimensiunea vectorului fiind numarul acestora. Pe langa acestea mai am global retinute si 
+fisierele intr-un  vector de tip FILE *.
+In functia Init verific daca au fost create fisiere pana atunci, adica programul nu este la 
+prima rulare ci de exemplu dupa primul test. Daca exista fisiere, reconstitui matricile dinamice
+impreuna cu dimensiunea acestora din fisiere in memorie.
+Alocare pentru prima data a matricilor dinamice nu o fac decat in AppendRow sau AppendColumn, in
+momentul in care si nr de linii si nr de coloane devin diferite de zero.
+Expandarea matricilor fie ca e vorba de o linie, coloana dau alte matrici se face prin realocarea 
+vechii matrici si copiere pe noile linii sau coloane a elementelor respective. In cazul extinderii 
+cu alte matrici trebuie sa fim atenti daca matricea cu care se extinde este chiar cea care trebuie 
+extinsa. 
+Toate scrierile in fisiere se fac o data in functia Finish impreuna cu eliberarile de memorie, iar
+deschiderile fisierelor s-au facut in CreateMatrix.
+Pentru fiecare submatrice creata cu GetSubMatrix1 retineam id-ul matricei dinamice initiale, cat 
+si pozitionarea in aceasta, impreuna cu adresa submatricii in cauza, necesara recunoasterii 
+submatricii date ca parametru in functia PutSubMatrix, unde o cautam in toate submatricile retinute
+in memorie. Odata gasita, ii aflam si pozitia si id-ul matricii dinamice initiale si puteam o puteam
+actualiza pe aceasta din urma.

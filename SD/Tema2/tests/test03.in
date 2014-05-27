@@ -1,0 +1,9 @@
+tests/corpus/corpus02.txt
+test03.out
+6
+-s steaua NN
+-s Atlanta NNP
+-s Fulton NNP
+-s Jury NNP
+-s the DT
+-s The DT

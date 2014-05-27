@@ -1,0 +1,34 @@
+/*	nume: Bojin
+ *  prenume: Andrei Florian
+ *  grupa/seria: 323 CA
+ */
+
+		Arhiva este constituita din 3 surse:
+
+	- Field.java, in care am implementat terenul de joc sub forma unei matrici tridimensionale
+cu coordonatele x si y ale unui punct din teren ca prime 2 dimensiuni, si directiile posibile 
+(0-7) ca a 3-a dimensiune. Aceasta matrice contine valori de tip boolean, reprezentand valoare 
+de adevar a prezentei unei linii pornind din coordonatele x si y, pe directia d, in teren.
+	De asemenea, mai folosesc o matrice secundara, bidimensionala care retine valori asociate
+punctelor din teren astfel incat, in implementarea algoritmului minimax, sa ma orientez pe teren.
+Valorile cresc pe masura ce ma apropii de poarta adversa si tind catre centru de pe margini. 
+Astfel in minimax, un scor(path) este considerat bun daca alege valori cat mai mari in cautarea
+celei mai bune cai catre poarta adversa. Practic, botul cauta sa-si maximizeze castigul.
+	Restul metodelor din aceasta clasa reprezinta moduri de parcurgere si prelucrare a terenului.
+
+	- Solution.java, in care am implementat algoritmul de minimax. Acesta presupune mai mult
+doar maximizarea castigului propriu, netratand si minimizarea castigului adversarului. De aceea
+am folosit o adancime egala cu 1 pentru a nu oscila intre cele 2 functii, maxi si mini. Ma
+folosesc aici de o clasa interna, Path, care retine scorul/valoarea punctului curent din teren 
+necesar in alegerea unui drum cat mai bun, si un vector cu directiile de urmat pentru a ajunge 
+la acest scor. Functia maxi va returna obiecte de tipul clasei acestea. In momentul in care 
+adancimea la care s-a ajuns devine 0, se returneaza valoarea punctului curent. Se parcurg toate
+directiile posibile, analizand la fiecare 2 cazuri: unu in care punctul in care va ajunge daca
+va efectua o mutare pe directia aceea este nevizitat, caz in care retin directia daca este o
+mutare valida si cu scor maxim. Sau al doilea caz cand acel punct este vizitat, caz in care
+trebuie sa mai efectuez o mutare.
+
+	- Bot.java, in care realizez parsarea datelor de intrare, citite de la standard input,
+prelucrarea acestora, apelul functiilor din Solution.java de obtinere a mutarilor ce trebuie
+afisate la server si afisarea acestora. Conditia de oprire este citirea unui mesaj de forma "F"
+de la server.

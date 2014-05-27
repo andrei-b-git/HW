@@ -1,0 +1,34 @@
+nume: Bojin
+prenume: Andrei Florian
+grupa/serie: 313 CA
+
+Am folosit versiunea 3.2.4 de Octave pentru a implementa tema.
+
+Taskul 1:
+	La citirea din fisiere nu au existat probleme in privinta NC-ului, dar nu mi-a placut faptul
+	ca functia load nu era la fel de intuitiva cand venea vorba de matricea points.
+Taskul 2:
+	Am ales initial random centroizii, si nu i-am luat pe primii NC distincti din points.
+	M-am folosit de o matrice auxiliara cu dimensiunile: nr de pct din points si numarul de 	clustere. In matricea aceasta retineam pt fiecare pct din points, distanta la centroizii 
+	alesi de mine. Nu am folosit norm pt a calc distanta ci formula clasica dar fara radical, 	  intrucat pt calcularea min dintre distante era inutil sa mai calc si radicalul. Din calculul
+	min dintre distante am retinut intrun vector centroizii corespunzatori fiecarui pct.
+	Am efectuat apoi recalcularea centroizilor cu media aritmetica a tuturor pct-elor care 		apartineau fiecarui centroid.
+	Am repetat toate aceste operatii pana cand matricea centroizilor anteriori devenea egala cu 
+	cea a centroizilor actuali, sau daca se ajungea intro situatie in care centroizii se schimbau 
+	foarte, foarte putin dar la infinit sa se opreasca algoritmul.
+	Mi-a luat ceva pana am gasit functii care sa-mi inlocuiasca for-uri si while-uri dar timpul 
+	de executie de doar 0,4 sec si numarul putin de linii de cod zic ca a meritat efortul. :p
+Taskul 3:
+	Am folosit portiunea de cod de la taskul 2 care calcula vectorul cu centroizii corespunzatori 
+	fiecarui punct si mi-am creat o matricea de dimensiune: nr de pct si 3, adica culoarea in 
+	format RGB sau [0 0 0] a fiecarui pct, matricea pe care am folosit-o apoi ca parametru in 
+	functia scatter3.
+Taskul 4:
+	Am folosit portiunea de cod de la taskul 2 care calcula vectorul cu distantele minime de la 
+	fiecare pct la centroidul corespunzator clusterului din care facea parte acel pct dupa care 
+	nu a trebuit decat sa insumez toate elem vectorului acesta.
+Taskul 5:
+	Mi-am construit un vector cu fiecare cost total pt un anumit numar de centroizi, utilizand 
+	apeluri ale functiilor implementate la taskurile 2 si 4.
+
+

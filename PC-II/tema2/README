@@ -1,0 +1,53 @@
+/*	Tema 2 PC
+ *
+ *	nume: Bojin Andrei Florian
+ *  grupa/seria: 323 CA
+*/
+
+	In cadrul implementarii ma folosesc de o structura auxiliara: "load" care contine campurile:
+- un vector cu costurile drumurilor dintre creator si vecini;
+- idul ruterului destinatie, necesar numai pentru mesajele de tipul 4 - Pachet de Date
+
+	De asemenea, folosesc matricea "topologie" pentru a imi reprezenta topologia retelei de
+rutere, si vectorul "LSABuff" reprezentand un buffer ce retine mesajele tip LSA.
+	Mai folosesc si 2 cozi, una noua, alta veche pentru a retine mesajele de tip 6 ce urmeaza a 
+fi procesate.
+	Pentru a determina drumul minim, am folosit algoritmul Dijkstra din curs. In cadrul acestuia
+realizez initializarea costurilor minime de la sursa la vecinii. Apoi marchez ca vizitat nodul 
+sursa si caut nodul nevizitat cu costul minim, actualizand pe parcurs tabela de rutare in urma 
+recalcularii costurilor.
+
+	In cadrul procesarii evenimentelor, am tratat fiecare tip in parte:
+- Tip E1: adaugare ruter
+	- creare mesaj tip Database Request
+	- trimiterea mesajului creat cu payloadul constituit din costurile vecinilor
+- Tip E2: adaugare link intre 2 rutere
+	- se actualizeaza topologia cu noul cost
+	- se creaza un mesaj de tip Database Request
+ 	- se trateaza cazul in care nodul curent este ruter1
+	- se trateaza cazul in care nodul curent este ruter2
+	- se trimite mesajul creat cu payloadul constituit din costurile vecinilor
+- Tip E3: suprimare link intre 2 rutere
+	- se actualizeaza topologia, stergandu-se link-ul dintre cele 2 rutere
+	- se creaza un mesaj de tip LSA
+	- se retine topologia actualizata
+	- se trimite mesajul LSA doar vecinilor nodului curent
+	- se buffereaza mesajul LSA trimis
+- Tip E4: dirijare pachet
+	- creare mesaj de tip Pachet de Date si trimiterea mai departe a acestuia
+
+	In cadrul procesarii mesajelor:
+- Tip M1: mesaj de tip LSA
+	- trimit mesajul tuturor vecinilor mai putin senderului, actualizand topologia si bufferul 
+de mesaje LSA, daca mesajul LSA de procesat este mai nou decat cel din bufferul LSA
+- Tip M2: mesaj de tip Database Request
+	- creez si trimit un mesaj tip Database Reply senderului, actualizand lista costurilor de 
+trimis in payload
+	- creez un mesaj de tip LSA si il trimit tuturor vecinilor dupa care actualizez bufferul de 
+mesaje LSA si topologia
+- Tip M3: mesaj de tip Database Reply
+	- actualizez topologia si actualizez bufferul de mesaje LSA, daca  mesajul LSA de procesat 
+este mai nou decat cel din bufferul LSA
+- Tip M4: mesaj de tip Pachet de Date
+	- trimit mesajul mai departe, daca destinatia nu este nodul curent si daca exista drum intre 
+nodul curent si destinatie

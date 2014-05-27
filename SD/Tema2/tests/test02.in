@@ -1,0 +1,7 @@
+tests/corpus/corpus02.txt
+test02.out
+4
+-s ; ''
+-s . )
+-s '' ''
+-s 's s

@@ -1,0 +1,24 @@
+nume: Bojin
+prenume: Andrei Florian
+grupa/seria: 313 CA
+
+In rezolvarea problemei m-am folosit de pointeri si alocare dinamica
+pentru crearea, parcurgerea si modificarea matricilor.
+In vederea obtinerii matricei finale am parcurs cele g generatii pas cu pas.
+La fiecare pas am facut urmatoarele operatii:
+ -am parcurs matricea generatiei curente, a, testand prin intermediul unei 
+  masti pe biti, pentru fiecare bit al fiecarui element cat este suma vecinilor 
+  lui (2 sau 3 pentru bitii 1, si 3 pentru biti 0) pentru a deveni 1 la 
+  urmatoarea generatie.
+ -am construit o matrice b, a generatiei urmatoare, bit cu bit in functie doar 
+  de bitii 1 care se vor mentine si generatia urmatoare, matricea b fiind 
+  initial 0.
+ -am obtinut o matrice b, a generatiei urmatoare, pe care am
+  trecut-o in matricea curenta, a, matricea b redevenind 0.  
+In final am afisat matricea a si am eliberat memoria ocupata.
+
+Mi-a facut placere sa ma gandesc la un mod de calcul al sumei vecinilor unui element
+operand cu valori de adevar (1 sau 0) ale unor conditii necesare parcurgerii matricei
+in orice situatie, renuntand astfel la o multitudine de "if-uri: si "else-uri".
+As fi vrut ca afisarea sa se faca intr-un mod mai atractiv, gen animatie a trecerii prin 
+cele g generatii.
